@@ -1,0 +1,112 @@
+/* ─── TABLET ───────────────────────────────────────── */
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-photo-col {
+    display: flex;
+    justify-content: center;
+  }
+
+  .project-body,
+  .project-body.reverse {
+    grid-template-columns: 1fr;
+    direction: ltr;
+  }
+
+  .project-body.reverse > * { direction: ltr; }
+
+  .project-visual { order: -1; }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-stats {
+    gap: var(--space-5);
+    padding: var(--space-4) var(--space-5);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .stat-divider { display: none; }
+}
+
+/* ─── MOBILE ───────────────────────────────────────── */
+@media (max-width: 640px) {
+  section { padding-block: var(--space-20); }
+
+  .nav-links,
+  .nav-resume-btn { display: none; }
+
+  .nav-toggle { display: flex; }
+
+  .hero-name {
+    font-size: clamp(3rem, 14vw, 5rem);
+  }
+
+  .hero-stats {
+    gap: var(--space-4);
+    padding: var(--space-4);
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+  }
+
+  .hero-actions a {
+    justify-content: center;
+  }
+
+  .project-card {
+    padding: var(--space-6);
+  }
+
+  .exp-header {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .exp-meta { align-items: flex-start; }
+
+  .achievements-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .playground-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .edu-item {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  .edu-year { font-size: 10px; }
+
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-3);
+  }
+
+  .footer-copy { margin-right: 0; }
+
+  /* Disable custom cursor on touch */
+  #cursor, #cursor-follower { display: none; }
+  body { cursor: auto; }
+
+  .auth-flow { gap: var(--space-1); }
+  .auth-arrow { display: none; }
+
+  .skills-tabs { gap: var(--space-2); }
+}
+
+/* ─── LARGE SCREENS ────────────────────────────────── */
+@media (min-width: 1400px) {
+  .container { max-width: 1280px; }
+  .hero-name { font-size: 8rem; }
+}

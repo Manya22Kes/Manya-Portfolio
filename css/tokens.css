@@ -1,0 +1,65 @@
+:root {
+  /* Colors */
+  --bg:           #0D1117;
+  --surface-1:    #161B22;
+  --surface-2:    #1F2937;
+  --surface-3:    #263040;
+  --accent:       #C68A3B;
+  --accent-light: #E7D3A1;
+  --accent-glow:  rgba(198,138,59,0.18);
+  --text:         #F5F5F5;
+  --text-muted:   #A8B3CF;
+  --text-dim:     #5A6478;
+  --border:       rgba(255,255,255,0.07);
+  --border-hover: rgba(198,138,59,0.35);
+
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-mono:    'DM Mono', monospace;
+
+  /* Type scale */
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  2rem;
+  --text-4xl:  2.75rem;
+  --text-5xl:  3.75rem;
+  --text-6xl:  5rem;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* Radius */
+  --r-sm:  6px;
+  --r-md:  12px;
+  --r-lg:  20px;
+  --r-xl:  28px;
+  --r-full: 9999px;
+
+  /* Transitions */
+  --ease-out:   cubic-bezier(0.16,1,0.3,1);
+  --ease-in-out: cubic-bezier(0.45,0,0.55,1);
+  --transition: 0.4s var(--ease-out);
+  --transition-fast: 0.2s var(--ease-out);
+
+  /* Shadows */
+  --shadow-glow: 0 0 40px rgba(198,138,59,0.15);
+  --shadow-card: 0 4px 32px rgba(0,0,0,0.4);
+  --shadow-sm:   0 2px 8px rgba(0,0,0,0.3);
+}
