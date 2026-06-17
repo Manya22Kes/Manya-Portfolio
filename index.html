@@ -367,7 +367,9 @@ section{padding-block:6rem;position:relative}
 .fg input,.fg textarea{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-md);padding:.75rem 1rem;color:var(--text);font-size:.9rem;transition:border-color var(--t-fast),background var(--t-fast);resize:vertical}
 .fg input::placeholder,.fg textarea::placeholder{color:var(--text-dim)}
 .fg input:focus,.fg textarea:focus{border-color:rgba(232,121,154,.5);background:rgba(232,121,154,.03);outline:none}
-.form-success{display:flex;align-items:center;gap:.5rem;font-size:.87rem;color:#10B981;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);padding:.75rem 1rem;border-radius:var(--r-md);animation:fadeInUp .4s var(--ease)}
+#cf-btn{position:relative;display:flex;align-items:center;justify-content:center;text-align:center}
+#cf-btn svg{position:absolute;right:1rem}
+.form-success{display:flex;align-items:center;justify-content:center;text-align:center;gap:.5rem;font-size:.87rem;color:#10B981;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);padding:.75rem 1rem;border-radius:var(--r-md);animation:fadeInUp .4s var(--ease)}
 .closing{text-align:center;margin-top:5rem;padding-top:3rem;border-top:1px solid var(--border)}
 .closing-q{font-family:var(--font-d);font-size:clamp(1.3rem,3vw,2rem);font-style:italic;color:var(--text);margin-bottom:1rem;line-height:1.4}
 .closing-n{font-size:.85rem;color:var(--accent);font-family:var(--font-m);letter-spacing:.05em}
@@ -398,6 +400,7 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
 .modal-screens{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem}
 .modal-screen{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;font-size:2.5rem;transition:transform var(--t)}
 .modal-screen:hover{transform:scale(1.02)}
+.modal-screen img{width:100%;height:100%;object-fit:cover}
 .modal-section{margin-bottom:1.75rem}
 .modal-section h4{font-size:.78rem;font-family:var(--font-m);color:var(--accent);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.75rem}
 .modal-section p,.modal-section li{font-size:.9rem;color:var(--text-muted);line-height:1.7}
@@ -477,7 +480,7 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
       <li><a href="#experience">Experience</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <a href="#" download class="nav-resume magnetic btn btn-secondary btn-sm">
+    <a href="assets/Manya%20Resume.pdf" download class="nav-resume magnetic btn btn-secondary btn-sm">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Resume
     </a>
@@ -493,7 +496,7 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
       <li><a href="#labs">Labs</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="#">Download Resume</a></li>
+      <li><a href="assets/Manya%20Resume.pdf" download>Download Resume</a></li>
     </ul>
   </div>
 </nav>
@@ -520,8 +523,8 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
         <span>View Projects</span>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
-      <a href="#" download class="btn btn-secondary magnetic">Download Resume</a>
-      <a href="#contact" class="btn btn-ghost">Contact Me</a>
+      <a href="assets/Manya%20Resume.pdf" download class="btn btn-secondary magnetic">Download Resume</a>
+      <a href="#contact" class="btn btn-secondary magnetic">Contact Me</a>
     </div>
     <div class="hero-stats ru" style="transition-delay:.6s">
       <div class="stat"><span class="stat-n" data-count="300">0</span><span class="stat-s">+</span><span class="stat-l">LeetCode Problems</span></div>
@@ -809,6 +812,38 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
         </div>
       </div>
 
+      <div class="skill-cat ru">
+        <div class="skill-cat-label">Core Concepts</div>
+        <div class="skill-nodes">
+
+          <div class="skill-node" style="--sk-glow:rgba(232,121,154,.14);--sk-glow2:rgba(232,121,154,.9);--sk-b:rgba(232,121,154,.45);--sk-shadow:rgba(232,121,154,.2)">
+            <div class="sk-icon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="4" fill="#1A0F2E"/><path d="M10 10h12v12H10z" fill="none" stroke="#E8799A" stroke-width="1.6"/><path d="M16 10v12M10 16h12" stroke="#F4B8CA" stroke-width="1.2"/></svg></div>
+            <span>Data Structures and Algorithms</span>
+          </div>
+
+          <div class="skill-node" style="--sk-glow:rgba(184,169,232,.14);--sk-glow2:rgba(184,169,232,.9);--sk-b:rgba(184,169,232,.45);--sk-shadow:rgba(184,169,232,.2)">
+            <div class="sk-icon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="4" fill="#1E1535"/><path d="M10 22V10h7a4 4 0 0 1 0 8h-7" fill="none" stroke="#B8A9E8" stroke-width="1.7"/><path d="M17 18l5 4" stroke="#E8799A" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+            <span>OOPs</span>
+          </div>
+
+          <div class="skill-node" style="--sk-glow:rgba(190,130,90,.14);--sk-glow2:rgba(190,130,90,.9);--sk-b:rgba(190,130,90,.45);--sk-shadow:rgba(190,130,90,.2)">
+            <div class="sk-icon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><ellipse cx="16" cy="10" rx="9" ry="3.5" fill="none" stroke="#BE825A" stroke-width="1.4"/><path d="M7 10v8c0 1.9 4 3.5 9 3.5s9-1.6 9-3.5v-8" fill="none" stroke="#BE825A" stroke-width="1.4"/><path d="M7 14c0 1.9 4 3.5 9 3.5s9-1.6 9-3.5" fill="none" stroke="#D9A879" stroke-width="1.1"/></svg></div>
+            <span>Database Management System</span>
+          </div>
+
+          <div class="skill-node" style="--sk-glow:rgba(66,133,244,.14);--sk-glow2:rgba(66,133,244,.9);--sk-b:rgba(66,133,244,.45);--sk-shadow:rgba(66,133,244,.2)">
+            <div class="sk-icon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="9" fill="none" stroke="#4285F4" stroke-width="1.6"/><circle cx="16" cy="16" r="3" fill="#34A853"/><path d="M16 7v4M25 16h-4M16 25v-4M7 16h4" stroke="#EA4335" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+            <span>Artificial Intelligence and Machine Learning</span>
+          </div>
+
+          <div class="skill-node" style="--sk-glow:rgba(255,108,55,.14);--sk-glow2:rgba(255,108,55,.9);--sk-b:rgba(255,108,55,.45);--sk-shadow:rgba(255,108,55,.2)">
+            <div class="sk-icon"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="4" fill="#1A0E00"/><path d="M10 12h12M10 16h8M10 20h10" stroke="#FF6C37" stroke-width="1.6" stroke-linecap="round"/><path d="M22 10l3 3-3 3" fill="none" stroke="#FFC2A3" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span>API Fundamentals</span>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -883,10 +918,10 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
             <div class="hl"><span class="hl-lbl">Architecture</span><span>8+ REST endpoints, 4 middleware layers, RBAC, Axios interceptor queuing.</span></div>
             <div class="hl"><span class="hl-lbl">Security</span><span>JWT rotation, bcrypt hashing, Google OAuth, email verification flow.</span></div>
           </div>
-          <div class="proj-stack"><span>React</span><span>Vite</span><span>Node.js</span><span>Express</span><span>MongoDB</span><span>JWT</span><span>OAuth</span></div>
+          <div class="proj-stack"><span>React</span><span>Vite</span><span>Node.js</span><span>Express</span><span>Cloudinary</span><span>MongoDB</span><span>JWT</span><span>OAuth</span></div>
           <div class="proj-actions">
-            <a href="#" class="btn btn-primary btn-sm magnetic" target="_blank"><span>Live Demo</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
-            <a href="#" class="btn btn-secondary btn-sm magnetic" target="_blank">GitHub</a>
+            <a href="https://authify-authentication-system.vercel.app/" class="btn btn-primary btn-sm magnetic" target="_blank"><span>Live Demo</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+            <a href="https://github.com/Manya22Kes/Authify---Authentication-System" class="btn btn-secondary btn-sm magnetic" target="_blank">GitHub</a>
             <span class="view-details" data-modal="authify">Full Case Study →</span>
           </div>
         </div>
@@ -934,8 +969,8 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
           </div>
           <div class="proj-stack"><span>React</span><span>Node.js</span><span>Express</span><span>MongoDB</span><span>Cloudinary</span></div>
           <div class="proj-actions">
-            <a href="#" class="btn btn-primary btn-sm magnetic" target="_blank"><span>Live Demo</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
-            <a href="#" class="btn btn-secondary btn-sm magnetic" target="_blank">GitHub</a>
+            <a href="https://xpensemanager-one.vercel.app/" class="btn btn-primary btn-sm magnetic" target="_blank"><span>Live Demo</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
+            <a href="https://github.com/Manya22Kes/budget-tracker" class="btn btn-secondary btn-sm magnetic" target="_blank">GitHub</a>
             <span class="view-details" data-modal="xpense">Full Case Study →</span>
           </div>
         </div>
@@ -977,8 +1012,8 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
           <div class="lab-img-wrap"><span class="lab-emoji">🌤️</span></div>
           <div class="lab-overlay"></div>
           <div class="lab-quick">
-            <a href="#" class="lab-demo" target="_blank">Live Demo</a>
-            <a href="#" class="lab-gh" target="_blank">GitHub</a>
+            <a href="https://weather-app-iota-brown-71.vercel.app/" class="lab-demo" target="_blank">Live Demo</a>
+            <a href="https://github.com/Manya22Kes/Weather-App" class="lab-gh" target="_blank">GitHub</a>
           </div>
         </div>
         <div class="lab-body">
@@ -992,13 +1027,13 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
           <div class="lab-img-wrap"><span class="lab-emoji">🔗</span></div>
           <div class="lab-overlay"></div>
           <div class="lab-quick">
-            <a href="#" class="lab-demo" target="_blank">Live Demo</a>
-            <a href="#" class="lab-gh" target="_blank">GitHub</a>
+            <a href="https://url-shortener-d6jy.onrender.com/" class="lab-demo" target="_blank">Live Demo</a>
+            <a href="https://github.com/Manya22Kes/url-shortener" class="lab-gh" target="_blank">GitHub</a>
           </div>
         </div>
         <div class="lab-body">
           <div class="lab-title">URL Shortener <span class="lab-badge">Utility</span></div>
-          <p class="lab-desc">Link shortening with copy-to-clipboard, custom slug generation, and a minimal clean UI.</p>
+          <p class="lab-desc">Link shortening with copy-to-clipboard, analytics dashboard, and a minimal clean UI.</p>
           <div class="lab-stack"><span>Node.js</span><span>Express</span><span>MongoDB</span></div>
         </div>
       </div>
@@ -1008,7 +1043,7 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
           <div class="lab-overlay"></div>
           <div class="lab-quick">
             <a href="#" class="lab-demo" target="_blank">Live Demo</a>
-            <a href="#" class="lab-gh" target="_blank">GitHub</a>
+            <a href="https://github.com/Manya22Kes/Currency-Converter" class="lab-gh" target="_blank">GitHub</a>
           </div>
         </div>
         <div class="lab-body">
@@ -1023,12 +1058,12 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
           <div class="lab-overlay"></div>
           <div class="lab-quick">
             <a href="#" class="lab-demo" target="_blank">Live Demo</a>
-            <a href="#" class="lab-gh" target="_blank">GitHub</a>
+            <a href="https://github.com/Manya22Kes/Tic-Tac-Toe" class="lab-gh" target="_blank">GitHub</a>
           </div>
         </div>
         <div class="lab-body">
           <div class="lab-title">Tic Tac Toe <span class="lab-badge">Game</span></div>
-          <p class="lab-desc">Classic game with win detection, state management, and smooth animations. Supports 2-player mode.</p>
+          <p class="lab-desc">Classic game with win detection, score card, and smooth animations. Supports 2-player mode.</p>
           <div class="lab-stack"><span>JavaScript</span><span>HTML/CSS</span><span>Game Logic</span></div>
         </div>
       </div>
@@ -1038,12 +1073,12 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
           <div class="lab-overlay"></div>
           <div class="lab-quick">
             <a href="#" class="lab-demo" target="_blank">Live Demo</a>
-            <a href="#" class="lab-gh" target="_blank">GitHub</a>
+            <a href="https://github.com/Manya22Kes/Rock-Paper-Scissors" class="lab-gh" target="_blank">GitHub</a>
           </div>
         </div>
         <div class="lab-body">
           <div class="lab-title">Rock Paper Scissors <span class="lab-badge">Game</span></div>
-          <p class="lab-desc">JavaScript game with AI opponent, dynamic score tracking, choice animations, and win/loss history.</p>
+          <p class="lab-desc">JavaScript game with AI opponent, dynamic score tracking, simple animations.</p>
           <div class="lab-stack"><span>JavaScript</span><span>CSS Animations</span><span>State Management</span></div>
         </div>
       </div>
@@ -1110,13 +1145,13 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
     <div class="eyebrow ru"><span class="dot"></span>Achievements</div>
     <h2 class="section-title ru">Beyond the Code</h2>
     <div class="ach-grid">
-      <div class="ach-card ru"><span class="ach-icon">⚡</span><div class="ach-num counter" data-count="300">0</div><div class="ach-lbl">LeetCode Problems Solved</div></div>
+      <div class="ach-card ru"><span class="ach-icon">⚡</span><div class="ach-num counter" data-count="373">0</div><div class="ach-lbl">LeetCode Problems Solved</div></div>
       <div class="ach-card ru"><span class="ach-icon">🧩</span><div class="ach-num counter" data-count="100">0</div><div class="ach-lbl">GeeksForGeeks Solutions</div></div>
       <div class="ach-card ru"><span class="ach-icon">☁️</span><div class="ach-num">Top</div><div class="ach-lbl">Google Cloud Arcade Contributor</div></div>
       <div class="ach-card ru"><span class="ach-icon">🤖</span><div class="ach-num">GenAI</div><div class="ach-lbl">Study Jams Contributor · GDSC</div></div>
       <div class="ach-card ru"><span class="ach-icon">✍️</span><div class="ach-num">Board</div><div class="ach-lbl">Editorial Board · UNITIAN Newsletter</div></div>
       <div class="ach-card ru"><span class="ach-icon">🎤</span><div class="ach-num">Active</div><div class="ach-lbl">House of Orators · Public Speaker</div></div>
-      <div class="ach-card ru"><span class="ach-icon">🇪🇸</span><div class="ach-num counter" data-count="1000">0</div><div class="ach-lbl">Day Duolingo Streak · Spanish</div></div>
+      <div class="ach-card ru"><span class="ach-icon">🇪🇸</span><div class="ach-num counter" data-count="1061">0</div><div class="ach-lbl">Day Duolingo Streak · Spanish</div></div>
       <div class="ach-card ru"><span class="ach-icon">🌐</span><div class="ach-num">3</div><div class="ach-lbl">Languages: English, Hindi, Spanish</div></div>
     </div>
   </div>
@@ -1152,22 +1187,22 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
           <div><span class="cl-lbl">Email</span><span class="cl-val">manyaintelinfo.18@gmail.com</span></div>
           <svg class="cl-arr" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
         </a>
-        <a href="https://github.com/manya" class="contact-link magnetic" target="_blank" rel="noopener">
+        <a href="https://github.com/Manya22Kes" class="contact-link magnetic" target="_blank" rel="noopener">
           <div class="c-icon" style="font-size:.7rem">GH</div>
-          <div><span class="cl-lbl">GitHub</span><span class="cl-val">github.com/manya</span></div>
+          <div><span class="cl-lbl">GitHub</span><span class="cl-val">github.com/Manya22Kes</span></div>
           <svg class="cl-arr" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
         </a>
-        <a href="https://linkedin.com/in/manya" class="contact-link magnetic" target="_blank" rel="noopener">
+        <a href="https://www.linkedin.com/in/manya-keserwani-2b8686357" class="contact-link magnetic" target="_blank" rel="noopener">
           <div class="c-icon" style="font-size:.78rem;font-weight:800">in</div>
-          <div><span class="cl-lbl">LinkedIn</span><span class="cl-val">linkedin.com/in/manya</span></div>
+          <div><span class="cl-lbl">LinkedIn</span><span class="cl-val">linkedin.com/in/manya-keserwani-2b8686357</span></div>
           <svg class="cl-arr" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
         </a>
-        <a href="https://leetcode.com/manya" class="contact-link magnetic" target="_blank" rel="noopener">
+        <a href="https://leetcode.com/u/Manya_Keserwani" class="contact-link magnetic" target="_blank" rel="noopener">
           <div class="c-icon" style="font-size:.65rem;font-weight:700">LC</div>
-          <div><span class="cl-lbl">LeetCode</span><span class="cl-val">leetcode.com/manya</span></div>
+          <div><span class="cl-lbl">LeetCode</span><span class="cl-val">leetcode.com/u/Manya_Keserwani</span></div>
           <svg class="cl-arr" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
         </a>
-        <a href="#" download class="contact-link magnetic">
+        <a href="assets/Manya%20Resume.pdf" download class="contact-link magnetic">
           <div class="c-icon">↓</div>
           <div><span class="cl-lbl">Resume</span><span class="cl-val">Download PDF</span></div>
           <svg class="cl-arr" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
@@ -1194,9 +1229,9 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
     <span class="ft-name">Manya Keserwani</span>
     <span class="ft-copy">© 2026 · Built with intention</span>
     <div class="ft-links">
-      <a href="https://github.com/manya" target="_blank">GitHub</a>
-      <a href="https://linkedin.com/in/manya" target="_blank">LinkedIn</a>
-      <a href="https://leetcode.com/manya" target="_blank">LeetCode</a>
+      <a href="https://github.com/Manya22Kes" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/manya-keserwani-2b8686357" target="_blank">LinkedIn</a>
+      <a href="https://leetcode.com/u/Manya_Keserwani/" target="_blank">LeetCode</a>
     </div>
   </div>
 </footer>
@@ -1244,7 +1279,7 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
     </div>
     <div class="modal-section">
       <h4>Tech Stack</h4>
-      <div class="modal-stack"><span>React</span><span>Node.js</span><span>Express</span><span>MongoDB</span><span>Gemini API</span><span>NLP</span><span>Vercel</span><span>Render</span></div>
+      <div class="modal-stack"><span>React</span><span>Node.js</span><span>Express</span><span>Cloudinary</span><span>MongoDB</span><span>Gemini API</span><span>NLP</span><span>Vercel</span><span>Render</span></div>
     </div>
     <div class="modal-section">
       <h4>Challenges Solved</h4>
@@ -1264,12 +1299,12 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
     <h2 class="modal-title">AUTHIFY</h2>
     <p class="modal-sub">Full Stack Authentication System</p>
     <div class="modal-actions">
-      <a href="#" class="btn btn-primary magnetic" target="_blank">Live Demo ↗</a>
-      <a href="#" class="btn btn-secondary magnetic" target="_blank">GitHub</a>
+      <a href="https://authify-authentication-system.vercel.app/" class="btn btn-primary magnetic" target="_blank">Live Demo ↗</a>
+      <a href="https://github.com/Manya22Kes/Authify---Authentication-System" class="btn btn-secondary magnetic" target="_blank">GitHub</a>
     </div>
     <div class="modal-screens">
-      <div class="modal-screen">🔐</div>
-      <div class="modal-screen">📋</div>
+      <div class="modal-screen"><img src="assets/images/Authify 1.png" alt="Authentication dashboard showing session status active, auth method jwt refresh, and a user account summary panel in a dark interface"></div>
+      <div class="modal-screen"><img src="assets/images/Authify 2.png" alt="Settings screen with security checks list including refresh token in httpOnly cookie, access token in memory only and no tokens in localStorage"> </div>
     </div>
     <div class="modal-section">
       <h4>Overview</h4>
@@ -1300,7 +1335,7 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
     </div>
     <div class="modal-section">
       <h4>Tech Stack</h4>
-      <div class="modal-stack"><span>React</span><span>Vite</span><span>Node.js</span><span>Express</span><span>MongoDB</span><span>JWT</span><span>Google OAuth</span><span>bcrypt</span></div>
+      <div class="modal-stack"><span>React</span><span>Vite</span><span>Node.js</span><span>Express</span><span>Cloudinary</span><span>MongoDB</span><span>JWT</span><span>Google OAuth</span><span>bcrypt</span></div>
     </div>
     <div class="modal-section">
       <h4>Challenges Solved</h4>
@@ -1319,12 +1354,12 @@ footer{border-top:1px solid var(--border);padding:2rem 0}
     <h2 class="modal-title">XPENSE</h2>
     <p class="modal-sub">Personal Finance Tracker</p>
     <div class="modal-actions">
-      <a href="#" class="btn btn-primary magnetic" target="_blank">Live Demo ↗</a>
-      <a href="#" class="btn btn-secondary magnetic" target="_blank">GitHub</a>
+      <a href="https://xpensemanager-one.vercel.app/" class="btn btn-primary magnetic" target="_blank">Live Demo ↗</a>
+      <a href="https://github.com/Manya22Kes/budget-tracker" class="btn btn-secondary magnetic" target="_blank">GitHub</a>
     </div>
     <div class="modal-screens">
-      <div class="modal-screen">💸</div>
-      <div class="modal-screen">📈</div>
+      <div class="modal-screen"><img src="assets/images/xpense 1.png" alt="XPENSE dashboard showing category navigation sidebar and monthly spending chart in a personal finance tracker interface"></div>
+      <div class="modal-screen"><img src="assets/images/xpense 2.png" alt="XPENSE analytics screen showing expense transaction list and AI Finance Assistant chat widget in a finance tracker app"></div>
     </div>
     <div class="modal-section">
       <h4>Overview</h4>
