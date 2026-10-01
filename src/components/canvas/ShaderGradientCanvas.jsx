@@ -144,95 +144,104 @@ export default function ShaderGradientCanvas({ theme = 'light' }) {
     const container = containerRef.current;
     if (!container) return;
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+    let renderer = null;
+    let animationFrameId = null;
+    let geometry = null;
+    let material = null;
 
-    const renderer = new THREE.WebGLRenderer({
-      powerPreference: 'high-performance',
-      antialias: false,
-      alpha: false,
-    });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    container.appendChild(renderer.domElement);
+    try {
+      const scene = new THREE.Scene();
+      const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 
-    const uniforms = {
-      u_time: { value: 0 },
-      u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
-      u_mouse: { value: new THREE.Vector2(0, 0) },
-      u_themeDark: { value: targetDarkRef.current },
-      u_approach: { value: 0.0 },
-    };
-    uniformsRef.current = uniforms;
-
-    const material = new THREE.ShaderMaterial({
-      vertexShader,
-      fragmentShader,
-      uniforms,
-      depthWrite: false,
-      depthTest: false,
-    });
-
-    const geometry = new THREE.PlaneGeometry(2, 2);
-    const mesh = new THREE.Mesh(geometry, material);
-    scene.add(mesh);
-
-    let targetMouseX = 0;
-    let targetMouseY = 0;
-    let currentMouseX = 0;
-    let currentMouseY = 0;
-
-    const handlePointerMove = (e) => {
-      targetMouseX = (e.clientX / window.innerWidth) * 2 - 1;
-      targetMouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-    };
-
-    const handleResize = () => {
+      renderer = new THREE.WebGLRenderer({
+        powerPreference: 'high-performance',
+        antialias: false,
+        alpha: false,
+      });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
       renderer.setSize(window.innerWidth, window.innerHeight);
-      uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
-    };
+      container.appendChild(renderer.domElement);
 
-    window.addEventListener('pointermove', handlePointerMove, { passive: true });
-    window.addEventListener('resize', handleResize);
+      const uniforms = {
+        u_time: { value: 0 },
+        u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+        u_mouse: { value: new THREE.Vector2(0, 0) },
+        u_themeDark: { value: targetDarkRef.current },
+        u_approach: { value: 0.0 },
+      };
+      uniformsRef.current = uniforms;
 
-    let animationFrameId;
-    const clock = new THREE.Clock();
+      material = new THREE.ShaderMaterial({
+        vertexShader,
+        fragmentShader,
+        uniforms,
+        depthWrite: false,
+        depthTest: false,
+      });
 
-    const animate = () => {
-      uniforms.u_time.value = clock.getElapsedTime();
+      geometry = new THREE.PlaneGeometry(2, 2);
+      const mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
 
-      // Smooth mouse follow
-      currentMouseX += (targetMouseX - currentMouseX) * 0.04;
-      currentMouseY += (targetMouseY - currentMouseY) * 0.04;
-      uniforms.u_mouse.value.set(currentMouseX, currentMouseY);
+      let targetMouseX = 0;
+      let targetMouseY = 0;
+      let currentMouseX = 0;
+      let currentMouseY = 0;
 
-      // Smooth theme transitions between 0 (light) and 1 (dark)
-      if (uniforms.u_themeDark) {
-        uniforms.u_themeDark.value += (targetDarkRef.current - uniforms.u_themeDark.value) * 0.06;
-      }
+      const handlePointerMove = (e) => {
+        targetMouseX = (e.clientX / window.innerWidth) * 2 - 1;
+        targetMouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+      };
 
-      // Smooth approach theme transitions (Almond / Espresso)
-      if (uniforms.u_approach) {
-        uniforms.u_approach.value += (targetApproachRef.current - uniforms.u_approach.value) * 0.06;
-      }
+      const handleResize = () => {
+        if (!renderer) return;
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
+      };
 
-      renderer.render(scene, camera);
-      animationFrameId = requestAnimationFrame(animate);
-    };
+      window.addEventListener('pointermove', handlePointerMove, { passive: true });
+      window.addEventListener('resize', handleResize);
 
-    animate();
+      const clock = new THREE.Clock();
 
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('pointermove', handlePointerMove);
-      window.removeEventListener('resize', handleResize);
-      if (container && renderer.domElement) {
-        container.removeChild(renderer.domElement);
-      }
-      geometry.dispose();
-      material.dispose();
-      renderer.dispose();
-    };
+      const animate = () => {
+        uniforms.u_time.value = clock.getElapsedTime();
+
+        // Smooth mouse follow
+        currentMouseX += (targetMouseX - currentMouseX) * 0.04;
+        currentMouseY += (targetMouseY - currentMouseY) * 0.04;
+        uniforms.u_mouse.value.set(currentMouseX, currentMouseY);
+
+        // Smooth theme transitions between 0 (light) and 1 (dark)
+        if (uniforms.u_themeDark) {
+          uniforms.u_themeDark.value += (targetDarkRef.current - uniforms.u_themeDark.value) * 0.06;
+        }
+
+        // Smooth approach theme transitions (Almond / Espresso)
+        if (uniforms.u_approach) {
+          uniforms.u_approach.value += (targetApproachRef.current - uniforms.u_approach.value) * 0.06;
+        }
+
+        renderer.render(scene, camera);
+        animationFrameId = requestAnimationFrame(animate);
+      };
+
+      animate();
+
+      return () => {
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        window.removeEventListener('pointermove', handlePointerMove);
+        window.removeEventListener('resize', handleResize);
+        if (container && renderer && renderer.domElement) {
+          container.removeChild(renderer.domElement);
+        }
+        geometry?.dispose();
+        material?.dispose();
+        renderer?.dispose();
+      };
+    } catch (err) {
+      console.warn('WebGL Shader canvas unsupported, falling back to CSS background:', err);
+    }
   }, []);
 
   return <div ref={containerRef} className="shader-canvas-wrap" />;

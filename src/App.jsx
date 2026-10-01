@@ -84,6 +84,10 @@ export default function App() {
     setLoadingComplete(true);
     // Trigger CRT static tech power-on sequence ONLY once on initial page load / refresh
     setCrtTrigger(1);
+    // Backup reveal: ensure content becomes visible even if CRT effect is delayed
+    setTimeout(() => {
+      setSiteRevealed(true);
+    }, 850);
   };
 
   const handleCrtComplete = useCallback(() => {
@@ -92,6 +96,16 @@ export default function App() {
     setTimeout(() => {
       ScrollTrigger.refresh();
     }, 100);
+  }, []);
+
+  // Master safety guard: under no circumstances can the site remain unrevealed
+  useEffect(() => {
+    const masterSafety = setTimeout(() => {
+      setLoadingComplete(true);
+      setSiteRevealed(true);
+      ScrollTrigger.refresh();
+    }, 4500);
+    return () => clearTimeout(masterSafety);
   }, []);
 
   const lenisRef = useRef(null);

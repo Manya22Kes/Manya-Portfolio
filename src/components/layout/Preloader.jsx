@@ -57,8 +57,27 @@ export default function Preloader({ onComplete }) {
     };
 
     frameId = requestAnimationFrame(updateProgress);
-    return () => cancelAnimationFrame(frameId);
+
+    // Guaranteed fail-safe: if tab is backgrounded or requestAnimationFrame is paused
+    const safetyTimer = setTimeout(() => {
+      setProgress(100);
+      setMeltFactor(1);
+      setIsDone(true);
+      onComplete?.();
+    }, 3800);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      clearTimeout(safetyTimer);
+    };
   }, [onComplete]);
+
+  const handleSkip = () => {
+    setProgress(100);
+    setMeltFactor(1);
+    setIsDone(true);
+    onComplete?.();
+  };
 
   // Determine stage description
   const stageText =
@@ -92,7 +111,10 @@ export default function Preloader({ onComplete }) {
             overflow: 'hidden',
             padding: 'max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1.25rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left))',
             boxSizing: 'border-box',
+            cursor: 'pointer',
           }}
+          onClick={handleSkip}
+          title="Click to enter portfolio"
         >
           {/* Editorial Top Monogram Label */}
           <div
@@ -298,6 +320,20 @@ export default function Preloader({ onComplete }) {
             >
               {stageText}
             </motion.div>
+
+            {/* Quick Skip Prompt */}
+            <div
+              style={{
+                marginTop: '0.45rem',
+                fontSize: '0.58rem',
+                fontFamily: 'var(--font-m)',
+                color: 'rgba(255, 231, 231, 0.45)',
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+              }}
+            >
+              Tap or click to skip ↵
+            </div>
           </div>
         </motion.div>
       )}
