@@ -1,10 +1,12 @@
 import React, { useRef, useEffect } from 'react';
+import { playWaterRippleSound } from '../../utils/soundEffects';
 
 /**
  * ApproachLiquidRipples
  * Option A: Subtle interactive water ripples / liquid silk mesh for the Approach section background.
  * Creates gentle, viscous water ripples and a soft specular sheen as the cursor glides across
  * the almond/mulberry backdrop, settling to mirror stillness when idle.
+ * Clicking on the background spawns expanding water caustics waves and plays the tactile water ripple audio.
  */
 export default function ApproachLiquidRipples({ theme = 'dark', isDark = true }) {
   const canvasRef = useRef(null);
@@ -51,8 +53,8 @@ export default function ApproachLiquidRipples({ theme = 'dark', isDark = true })
           speed: 2.2,
           decay: 0.955,
         });
-        // Limit active ripples to 15 for optimal 60fps performance
-        if (ripples.length > 15) ripples.shift();
+        // Limit active ripples to 25 for optimal 60fps performance
+        if (ripples.length > 25) ripples.shift();
       }
     };
 
@@ -60,8 +62,39 @@ export default function ApproachLiquidRipples({ theme = 'dark', isDark = true })
       mouse.active = false;
     };
 
+    // Clicking / tapping on Approach background triggers water ripples and water sound
+    const handlePointerDown = (e) => {
+      const isInside = !!e.target.closest('#approach, .approach-section, .approach-pinned-stage, .approach-global-wash');
+      if (!isInside) return;
+
+      // If clicked on an interactive UI element like cards or buttons, skip (they have their own sounds)
+      if (e.target.closest('a, button, input, [role="button"], .approach-small-square-card')) {
+        return;
+      }
+
+      // Play tactile water rippling sound
+      playWaterRippleSound();
+
+      // Spawn prominent multi-ring water caustics ripple waves
+      for (let k = 0; k < 3; k++) {
+        ripples.push({
+          x: e.clientX,
+          y: e.clientY,
+          radius: 6 + k * 12,
+          maxRadius: 240 + k * 50,
+          alpha: isDark ? 0.68 - k * 0.14 : 0.58 - k * 0.12,
+          speed: 3.2 + k * 0.8,
+          decay: 0.965,
+        });
+      }
+      if (ripples.length > 30) {
+        ripples.splice(0, ripples.length - 30);
+      }
+    };
+
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('mouseleave', handleMouseLeave);
+    window.addEventListener('pointerdown', handlePointerDown, { passive: true });
 
     // Main animation loop
     const render = () => {
@@ -132,6 +165,7 @@ export default function ApproachLiquidRipples({ theme = 'dark', isDark = true })
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener('pointerdown', handlePointerDown);
     };
   }, [theme, isDark]);
 

@@ -1,10 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getAudioContext } from '../../utils/soundEffects';
 
 export default function Preloader({ onComplete }) {
   const [progress, setProgress] = useState(0);
   const [meltFactor, setMeltFactor] = useState(0);
   const [isDone, setIsDone] = useState(false);
+  const [isReadyToEnter, setIsReadyToEnter] = useState(false);
+
+  const unlockAudio = () => {
+    try {
+      const ctx = getAudioContext();
+      if (ctx && ctx.state === 'suspended') {
+        ctx.resume().catch(() => {});
+      }
+      const dummy = new Audio();
+      dummy.play().catch(() => {});
+    } catch (e) {}
+  };
+
+  const unlockAndProceed = () => {
+    unlockAudio();
+    setProgress(100);
+    setMeltFactor(1);
+    setIsDone(true);
+    setTimeout(() => {
+      onComplete?.();
+    }, 450);
+  };
+
+  const handleSkip = () => {
+    unlockAndProceed();
+  };
 
   // Cinematic progression curve:
   // 1. Hold crisp typography for ~1.1s so user can clearly see and appreciate the initial sculpture
@@ -18,6 +45,8 @@ export default function Preloader({ onComplete }) {
     const totalDuration = HOLD_CRISP_MS + DRIP_DURATION_MS + SETTLE_MS; // 3700ms
 
     let frameId;
+    let autoProceedTimer;
+
     const updateProgress = () => {
       const elapsed = Date.now() - startTime;
       const rawProgress = Math.min(1, elapsed / totalDuration);
@@ -49,10 +78,11 @@ export default function Preloader({ onComplete }) {
       } else {
         setProgress(100);
         setMeltFactor(1);
-        setTimeout(() => {
-          setIsDone(true);
-          setTimeout(onComplete, 750);
-        }, 350);
+        setIsReadyToEnter(true);
+        // Automatic proceed fallback if user doesn't tap within 1.6s
+        autoProceedTimer = setTimeout(() => {
+          unlockAndProceed();
+        }, 1600);
       }
     };
 
@@ -62,22 +92,15 @@ export default function Preloader({ onComplete }) {
     const safetyTimer = setTimeout(() => {
       setProgress(100);
       setMeltFactor(1);
-      setIsDone(true);
-      onComplete?.();
-    }, 3800);
+      unlockAndProceed();
+    }, 4500);
 
     return () => {
       cancelAnimationFrame(frameId);
+      clearTimeout(autoProceedTimer);
       clearTimeout(safetyTimer);
     };
   }, [onComplete]);
-
-  const handleSkip = () => {
-    setProgress(100);
-    setMeltFactor(1);
-    setIsDone(true);
-    onComplete?.();
-  };
 
   // Determine stage description
   const stageText =
@@ -114,7 +137,8 @@ export default function Preloader({ onComplete }) {
             cursor: 'pointer',
           }}
           onClick={handleSkip}
-          title="Click to enter portfolio"
+          onPointerDown={unlockAudio}
+          title="Click anywhere to enter portfolio"
         >
           {/* Editorial Top Monogram Label */}
           <div
@@ -321,19 +345,59 @@ export default function Preloader({ onComplete }) {
               {stageText}
             </motion.div>
 
-            {/* Quick Skip Prompt */}
-            <div
-              style={{
-                marginTop: '0.45rem',
-                fontSize: '0.58rem',
-                fontFamily: 'var(--font-m)',
-                color: 'rgba(255, 231, 231, 0.45)',
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase',
-              }}
-            >
-              Tap or click to skip ↵
-            </div>
+            {/* Interactive Enter Studio or Tap to Skip Prompt */}
+            {isReadyToEnter ? (
+              <motion.button
+                initial={{ opacity: 0, y: 5, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.96 }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  unlockAndProceed();
+                }}
+                onPointerDown={(e) => {
+                  e.stopPropagation();
+                  unlockAudio();
+                }}
+                style={{
+                  marginTop: '0.65rem',
+                  padding: '0.45rem 1.25rem',
+                  background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.28), rgba(148, 78, 99, 0.42))',
+                  border: '1px solid rgba(212, 175, 55, 0.75)',
+                  borderRadius: '999px',
+                  color: '#fff5ea',
+                  fontFamily: 'var(--font-m)',
+                  fontSize: '0.68rem',
+                  fontWeight: 600,
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  cursor: 'pointer',
+                  boxShadow: '0 0 24px rgba(212, 175, 55, 0.45), inset 0 0 12px rgba(255, 235, 205, 0.2)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.45rem',
+                  pointerEvents: 'auto',
+                }}
+              >
+                <span>ENTER STUDIO</span>
+                <span style={{ color: '#d4af37' }}>➔</span>
+              </motion.button>
+            ) : (
+              <div
+                style={{
+                  marginTop: '0.45rem',
+                  fontSize: '0.58rem',
+                  fontFamily: 'var(--font-m)',
+                  color: 'rgba(255, 231, 231, 0.55)',
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  pointerEvents: 'none',
+                }}
+              >
+                Tap anywhere to enter ↵
+              </div>
+            )}
           </div>
         </motion.div>
       )}

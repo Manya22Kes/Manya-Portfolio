@@ -4,6 +4,7 @@ import { X, ExternalLink, CheckCircle2, ShieldAlert, Cpu, Terminal } from 'lucid
 import { GithubIcon } from '../ui/Icons';
 import SpatialGlassCard from '../ui/SpatialGlassCard';
 import ProjectTelemetryPreview from '../ui/ProjectTelemetryPreview';
+import ProjectImageSlider from '../ui/ProjectImageSlider';
 
 export default function CaseStudyModal({ project, onClose }) {
   const [activeView, setActiveView] = useState('architecture');
@@ -252,7 +253,7 @@ export default function CaseStudyModal({ project, onClose }) {
                       boxShadow: activeView === 'image' ? '0 2px 10px rgba(148, 78, 99, 0.45)' : 'none',
                     }}
                   >
-                    <span>UI Mockup</span>
+                    <span>📸 Screenshots</span>
                   </button>
                 </div>
               </div>
@@ -275,10 +276,9 @@ export default function CaseStudyModal({ project, onClose }) {
                 {activeView === 'architecture' ? (
                   <ProjectTelemetryPreview projectId={project.id} />
                 ) : (
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  <ProjectImageSlider
+                    images={project.images || (project.image ? [project.image] : [])}
+                    title={project.title}
                   />
                 )}
               </div>

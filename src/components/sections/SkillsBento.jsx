@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { Code2, Server, Database, Brain, Cloud, ChevronLeft, ChevronRight, Film, Play, Pause } from 'lucide-react';
 import SectionAsterisk from '../ui/SectionAsterisk';
 import ItalicFlipWord from '../ui/ItalicFlipWord';
+import { playFilmReelSound } from '../../utils/soundEffects';
 
 const SKILL_CATEGORIES = [
   {
@@ -143,6 +144,24 @@ export default function SkillsBento({ theme = 'dark' }) {
     isHoveredRef.current = isHovered;
   }, [isPaused, isHovered]);
 
+  const isInViewRef = useRef(false);
+
+  // Monitor visibility so automatic stepping only plays audio when the user is actively viewing skills
+  useEffect(() => {
+    const el = stageRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isInViewRef.current = entry.isIntersecting;
+        });
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   // Intermittent Motion Engine: 400ms move with cubic-bezier(0.65, 0, 0.35, 1) + 900ms hold
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -160,6 +179,10 @@ export default function SkillsBento({ theme = 'dark' }) {
         setIsMoving(true);
         setSuppressTransition(false);
         setGateWeave({ x: 0, y: 0 });
+
+        if (isInViewRef.current) {
+          playFilmReelSound();
+        }
 
         const nextStep = stepIndexRef.current + 1;
         stepIndexRef.current = nextStep;

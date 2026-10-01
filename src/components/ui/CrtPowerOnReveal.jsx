@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { playCrtStaticSound } from '../../utils/soundEffects';
 
 export default function CrtPowerOnReveal({ triggerCount = 0, theme = 'dark', onComplete }) {
   const [phase, setPhase] = useState('idle');
@@ -7,6 +8,7 @@ export default function CrtPowerOnReveal({ triggerCount = 0, theme = 'dark', onC
   useEffect(() => {
     if (triggerCount > 0) {
       setPhase('line');
+      playCrtStaticSound();
       const t1 = setTimeout(() => setPhase('bloom'), 240);
       const tReveal = setTimeout(() => {
         onComplete?.();

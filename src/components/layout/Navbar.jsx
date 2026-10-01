@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FileText, Send, Menu, X, Sun, Moon, Download, Volume2, VolumeX } from 'lucide-react';
 import BrandAvatar from '../ui/BrandAvatar';
-import { isAudioMuted, setAudioMuted, playAsmrKeyboardClick } from '../../utils/soundEffects';
+import { isAudioMuted, setAudioMuted, playAsmrKeyboardClick, playWindChimeSound } from '../../utils/soundEffects';
 
 const NAV_LINKS = [
   { num: '01', label: 'Projects', href: '#projects' },
@@ -86,6 +86,15 @@ export default function Navbar({ theme = 'dark', onToggleTheme, siteRevealed = t
             href="#"
             aria-label="Return to top"
             className="nav-node-brand nav-hex-brand"
+            onClick={(e) => {
+              e.preventDefault();
+              playWindChimeSound();
+              if (window.__lenis) {
+                window.__lenis.scrollTo(0, { duration: 1.4 });
+              } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }}
             style={{
               display: 'flex',
               alignItems: 'center',

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, LeetCodeIcon } from '../ui/Icons';
 import BrandAvatar from '../ui/BrandAvatar';
+import { playWindChimeSound } from '../../utils/soundEffects';
 
 // Configuration for hover reveal backgrounds with bold, high-contrast gradients
 const FOOTER_BG_ITEMS = {
@@ -75,7 +76,12 @@ export default function Footer({ theme = 'dark' }) {
   };
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    playWindChimeSound();
+    if (window.__lenis) {
+      window.__lenis.scrollTo(0, { duration: 1.4 });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const nameColor = isDark ? '#ffffff' : '#2D121F';

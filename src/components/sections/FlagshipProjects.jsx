@@ -1,12 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Sparkles, Shield, BarChart3, Layers, ArrowUpRight, Eye, Bot, Terminal } from 'lucide-react';
+import { ExternalLink, Sparkles, Shield, BarChart3, Layers, ArrowUpRight, Eye, Bot, Terminal, Image as ImageIcon } from 'lucide-react';
 import { GithubIcon } from '../ui/Icons';
 import SpatialGlassCard from '../ui/SpatialGlassCard';
 import ProjectTelemetryPreview from '../ui/ProjectTelemetryPreview';
+import ProjectImageSlider from '../ui/ProjectImageSlider';
 import SectionAsterisk from '../ui/SectionAsterisk';
 import ItalicFlipWord from '../ui/ItalicFlipWord';
 import { playCardSound, playAsmrKeyboardClick } from '../../utils/soundEffects';
+
+const BASE_ASSET_URL = import.meta.env.BASE_URL || '/';
+const getProjectImg = (name) => `${BASE_ASSET_URL}assets/images/${encodeURI(name)}`.replace(/\/\//g, '/');
 
 export const FLAGSHIP_PROJECTS = [
   {
@@ -17,7 +21,12 @@ export const FLAGSHIP_PROJECTS = [
     tagline: 'AI-Powered Real-Time Video Surveillance & Alert System',
     description:
       'Three-service distributed architecture (Python/FastAPI ML microservice, Node.js/Express backend, React/TypeScript frontend) deploying a custom-trained YOLOv8 model achieving 91.44% precision. Features a resolution-independent polygon zone editor and instantaneous WebSocket telemetry pushes.',
-    image: 'assets/images/prism.jpg',
+    images: [
+      getProjectImg('vigilant 1.png'),
+      getProjectImg('vigilant 2.png'),
+      getProjectImg('vigilant 3.png'),
+    ],
+    image: getProjectImg('vigilant 1.png'),
     highlights: [
       { label: 'Model Precision', text: 'Custom YOLOv8 pipeline achieving 91.44% precision on held-out test data.' },
       { label: 'Zone Architecture', text: 'Resolution-independent zone editor using normalized vector coordinates.' },
@@ -36,7 +45,12 @@ export const FLAGSHIP_PROJECTS = [
     tagline: 'AI-Powered GitHub Workflow & Issue Automation Agent',
     description:
       'Full-stack automation platform integrating GitHub Apps API to auto-triage issues, summarize pull requests, and detect duplicates via pgvector semantic search. Engineered with an asynchronous BullMQ + Redis job pipeline with idempotency guarantees and automatic Gemini model failover.',
-    image: 'assets/images/Authify 1.png',
+    images: [
+      getProjectImg('repo 1.png'),
+      getProjectImg('repo 2.png'),
+      getProjectImg('repo 3.png'),
+    ],
+    image: getProjectImg('repo 1.png'),
     highlights: [
       { label: 'Semantic Deduplication', text: 'Vector embeddings with pgvector replacing fragile keyword regex matching.' },
       { label: 'Resilient Queue', text: 'Decoupled webhook ingestion via BullMQ & Redis with dead-letter recovery.' },
@@ -55,7 +69,12 @@ export const FLAGSHIP_PROJECTS = [
     tagline: 'AI-Powered Misinformation & Credibility Analyzer',
     description:
       'Multi-modal credibility platform ingesting 7 content formats (text, URLs, PDFs, DOCX, PPTX, images, audio). Uses Google Gemini API to extract claims and detect bias in real time, backed by a dual-layer OCR and speech-to-text pipeline (Cloud Vision, Tesseract.js, Cloud Speech-to-Text).',
-    image: 'assets/images/prism.jpg',
+    images: [
+      getProjectImg('prism 1.png'),
+      getProjectImg('prism 2.png'),
+      getProjectImg('prism 3.png'),
+    ],
+    image: getProjectImg('prism 1.png'),
     highlights: [
       { label: '7-Format Ingestion', text: 'Scans text, URLs, PDFs, DOCX, PPTX, images, and audio files.' },
       { label: 'Dual-Layer OCR', text: 'Google Cloud Vision with automatic Tesseract.js fallback pipeline.' },
@@ -74,7 +93,12 @@ export const FLAGSHIP_PROJECTS = [
     tagline: 'Production-Grade Full Stack Authentication System',
     description:
       'Production-grade auth platform featuring automatic JWT refresh token rotation, Google OAuth 2.0, bcrypt hashing, email OTP verification, role-based access control, and silent Axios interceptor queuing across 8+ REST endpoints and 4 defensive middleware layers.',
-    image: 'assets/images/Authify 1.png',
+    images: [
+      getProjectImg('Authify 1.png'),
+      getProjectImg('Authify 2.png'),
+      getProjectImg('Authify 3.png'),
+    ],
+    image: getProjectImg('Authify 1.png'),
     highlights: [
       { label: 'Security', text: 'Zero-trust token lifecycle with HTTP-only cookies and bcrypt hashing.' },
       { label: 'Architecture', text: '8+ REST endpoints, 4 middleware layers, Axios silent refresh queuing.' },
@@ -93,7 +117,12 @@ export const FLAGSHIP_PROJECTS = [
     tagline: 'Personal Finance Analytics & Budget Tracker',
     description:
       'High-performance expense management web application with dark/light spatial themes, dynamic analytical charts, receipt asset uploads via Cloudinary, and conversational AI financial assistant.',
-    image: 'assets/images/xpense 1.png',
+    images: [
+      getProjectImg('xpense 1.png'),
+      getProjectImg('xpense 2.png'),
+      getProjectImg('xpense 3.png'),
+    ],
+    image: getProjectImg('xpense 1.png'),
     highlights: [
       { label: 'Analytics', text: 'Real-time expenditure charts categorized across custom budget limits.' },
       { label: 'Receipt Storage', text: 'Direct image upload pipelines integrated with Cloudinary CDN.' },
@@ -273,8 +302,9 @@ function FlagshipProjectCard({ proj, idx, onOpenModal, theme = 'dark' }) {
                   </span>
                 </div>
 
-                {/* Surprise Feature Toggle Button */}
+                {/* Interactive Mode Switch Button */}
                 <button
+                  type="button"
                   onClick={() => {
                     playAsmrKeyboardClick('default');
                     setShowTelemetry(!showTelemetry);
@@ -295,28 +325,20 @@ function FlagshipProjectCard({ proj, idx, onOpenModal, theme = 'dark' }) {
                     transition: 'all 0.2s ease',
                   }}
                 >
-                  <Terminal size={11} />
-                  <span>{showTelemetry ? 'VIEW PREVIEW' : '⚡ LIVE ARCHITECTURE'}</span>
+                  {showTelemetry ? <ImageIcon size={11} /> : <Terminal size={11} />}
+                  <span>{showTelemetry ? '🖼️ SCREENSHOTS' : '⚡ LIVE ARCHITECTURE'}</span>
                 </button>
               </div>
 
-              {/* View Area: Switchable between Image Preview and Interactive Telemetry */}
+              {/* View Area: Switchable between Image Slider and Interactive Telemetry */}
               <div style={{ aspectRatio: '16/10', overflow: 'hidden', position: 'relative' }}>
                 {showTelemetry ? (
                   <ProjectTelemetryPreview projectId={proj.id} />
                 ) : (
-                  <img
-                    src={proj.image}
-                    alt={proj.title}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      display: 'block',
-                      transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
-                    }}
-                    onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.03)')}
-                    onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+                  <ProjectImageSlider
+                    images={proj.images}
+                    title={proj.title}
+                    onImageClick={() => onOpenModal(proj)}
                   />
                 )}
               </div>

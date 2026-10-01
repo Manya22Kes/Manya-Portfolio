@@ -1276,14 +1276,35 @@ section {
     order: 1 !important;
     width: 100% !important;
   }
-  /* On mobile phones, hide long preview/live architecture column (kept in Deep Case Study modal only) */
+  /* Display the interactive image slider & preview column cleanly beneath the content on mobile */
   .project-card-preview-col {
-    display: none !important;
+    display: block !important;
+    order: 2 !important;
+    width: 100% !important;
+    margin-top: 1.25rem !important;
   }
 }
 
 .project-mobile-metrics-row {
-  display: none;
+  display: none !important;
+}
+
+/* Project Image Slider Button & Dot Hover States */
+.project-slider-btn {
+  opacity: 0.88;
+}
+.project-slider-btn:hover {
+  opacity: 1 !important;
+  background: rgba(148, 78, 99, 0.92) !important;
+  border-color: rgba(255, 231, 231, 0.6) !important;
+  transform: translateY(-50%) scale(1.1) !important;
+  color: #ffffff !important;
+}
+.project-slider-btn:active {
+  transform: translateY(-50%) scale(0.96) !important;
+}
+.project-slider-dot:hover {
+  background: rgba(255, 231, 231, 0.85) !important;
 }
 
 @media (max-width: 768px) {

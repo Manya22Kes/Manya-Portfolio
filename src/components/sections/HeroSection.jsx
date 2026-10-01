@@ -1,10 +1,47 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowDown, Download, Sparkles, Terminal, Shield, Eye, Bot, Cpu } from 'lucide-react';
+import { playWindChimeSound } from '../../utils/soundEffects';
 
 export default function HeroSection({ theme = 'dark', siteRevealed = true }) {
   const heroRef = useRef(null);
   const tiltContainerRef = useRef(null);
+
+  // Ethereal wind chime sound strictly on landing page smooth scroll UP
+  useEffect(() => {
+    let lastY = window.scrollY;
+    let accumulatedUp = 0;
+
+    const handleLandingScroll = () => {
+      const currentY = window.scrollY;
+      const heroEl = heroRef.current;
+      const heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight : window.innerHeight;
+
+      // Active strictly within landing page bounds (from top down to bottom of hero + 60px)
+      if (currentY <= heroBottom + 60) {
+        const delta = currentY - lastY;
+        // delta < 0 means scrolling UP
+        if (delta < -6) {
+          accumulatedUp += Math.abs(delta);
+          // When user scrolls up deliberately (> 24px of upward motion)
+          if (accumulatedUp > 24) {
+            playWindChimeSound();
+            accumulatedUp = 0;
+          }
+        } else if (delta > 4) {
+          // Reset on scroll down so it only accumulates on scroll up
+          accumulatedUp = 0;
+        }
+      } else {
+        accumulatedUp = 0;
+      }
+
+      lastY = currentY;
+    };
+
+    window.addEventListener('scroll', handleLandingScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleLandingScroll);
+  }, []);
 
   // 3D Perspective Tilt state driven by cursor X position (-8deg to 8deg)
   const [tiltAngle, setTiltAngle] = useState(0);

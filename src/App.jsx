@@ -15,7 +15,7 @@ import ContactSection from './components/sections/ContactSection';
 import Footer from './components/layout/Footer';
 import CaseStudyModal from './components/modals/CaseStudyModal';
 import CrtPowerOnReveal from './components/ui/CrtPowerOnReveal';
-import { setupGlobalSoundListener } from './utils/soundEffects';
+import { setupGlobalSoundListener, playWindChimeSound } from './utils/soundEffects';
 
 const THEME_STORAGE_KEY = 'manya_portfolio_theme_v4';
 
@@ -122,8 +122,14 @@ export default function App() {
     lenisRef.current = lenis;
     window.__lenis = lenis;
 
-    // Connect Lenis scroll events to GSAP ScrollTrigger
-    lenis.on('scroll', ScrollTrigger.update);
+    // Connect Lenis scroll events to GSAP ScrollTrigger and landing page wind chime sound
+    lenis.on('scroll', (e) => {
+      ScrollTrigger.update();
+      // Smooth scroll up on landing page: direction -1 (scrolling up) within hero bounds
+      if (e && e.direction === -1 && e.scroll <= window.innerHeight * 1.15 && e.scroll > 10) {
+        playWindChimeSound();
+      }
+    });
 
     let rafId;
     function raf(time) {
